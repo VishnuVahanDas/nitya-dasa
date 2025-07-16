@@ -4,7 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'vow_service.dart';
 
 class EmergencyPage extends StatefulWidget {
-  const EmergencyPage({super.key, AudioPlayer? player}) : _player = player ?? AudioPlayer();
+  EmergencyPage({super.key, AudioPlayer? player}) : _player = player ?? AudioPlayer();
 
   final AudioPlayer _player;
 
