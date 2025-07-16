@@ -68,7 +68,8 @@ class _CheckinPageState extends State<CheckinPage> {
     await _service.saveCheckin(_selectedDate, data);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Check-in saved')),);
+        const SnackBar(content: Text('Check-in saved')),
+      );
     }
   }
 
