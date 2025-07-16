@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -24,6 +27,22 @@ class NotificationService {
   }) async {
     await _plugin.cancelAll();
 
+    // Request permission to schedule exact alarms on Android 12+.
+    if (Platform.isAndroid) {
+      final androidImpl = _plugin.resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>();
+      try {
+        final allowed = await androidImpl?.requestPermissionToScheduleExactAlarms();
+        if (allowed == false) {
+          debugPrint('Exact alarm permission not granted');
+          return;
+        }
+      } on PlatformException catch (e) {
+        debugPrint('Exact alarm permission request failed: $e');
+        return;
+      }
+    }
+
     const androidDetails = AndroidNotificationDetails(
       'daily_reminders',
       'Daily Reminders',
@@ -33,29 +52,33 @@ class NotificationService {
     const iosDetails = DarwinNotificationDetails();
     const details = NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    await _plugin.zonedSchedule(
-      0,
-      'Morning Reminder',
-      'Start your day with devotion',
-      _nextInstance(morning),
-      details,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.wallClockTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
+    try {
+      await _plugin.zonedSchedule(
+        0,
+        'Morning Reminder',
+        'Start your day with devotion',
+        _nextInstance(morning),
+        details,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.wallClockTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
 
-    await _plugin.zonedSchedule(
-      1,
-      'Evening Reminder',
-      'Reflect on your day',
-      _nextInstance(evening),
-      details,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.wallClockTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
+      await _plugin.zonedSchedule(
+        1,
+        'Evening Reminder',
+        'Reflect on your day',
+        _nextInstance(evening),
+        details,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.wallClockTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    } on PlatformException catch (e) {
+      debugPrint('Failed to schedule daily reminders: $e');
+    }
   }
 
   tz.TZDateTime _nextInstance(TimeOfDay time) {
