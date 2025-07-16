@@ -35,3 +35,7 @@ Key planned features include:
 At this stage the project is in early development. After cloning and installing dependencies, you can run the default Flutter app as a starting point. As new features are implemented, this README will be updated with additional instructions.
 
 Please check back for future updates and feel free to submit issues or pull requests to contribute.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
