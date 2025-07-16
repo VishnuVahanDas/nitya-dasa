@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'checkin/checkin_page.dart';
 import 'dashboard/dashboard_page.dart';
 import 'journal/journal_page.dart';
+import 'theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.theme,
       home: const HomePage(),
     );
   }
