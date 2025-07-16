@@ -22,7 +22,7 @@ Thank you for your interest in contributing to **Nitya Dāsa**! This document ex
 
 ## Running Tests
 
-This project currently has no automated tests. As tests are added, you can run them with:
+Run all Flutter widget tests with:
 
 ```bash
 flutter test
