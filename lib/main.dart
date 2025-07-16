@@ -14,8 +14,8 @@ Future<void> main() async {
   final evening = await settings.getEveningTime();
   await NotificationService.instance.init();
   await NotificationService.instance.scheduleDailyReminders(
-    morning: Time(morning.hour, morning.minute),
-    evening: Time(evening.hour, evening.minute),
+    morning: morning,
+    evening: evening,
   );
   runApp(const MyApp());
 }
