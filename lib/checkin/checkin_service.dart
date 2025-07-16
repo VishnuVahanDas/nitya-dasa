@@ -21,6 +21,25 @@ class CheckinService {
     return CheckinData.fromJson(jsonDecode(raw) as Map<String, dynamic>);
   }
 
+  Future<Map<DateTime, CheckinData>> getAllCheckins() async {
+    final prefs = await SharedPreferences.getInstance();
+    final result = <DateTime, CheckinData>{};
+    for (final key in prefs.getKeys()) {
+      if (!key.startsWith(_prefix)) continue;
+      final raw = prefs.getString(key);
+      if (raw == null) continue;
+      final dateString = key.substring(_prefix.length);
+      try {
+        final date = DateTime.parse(dateString);
+        result[DateTime(date.year, date.month, date.day)] =
+            CheckinData.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+      } catch (_) {
+        continue;
+      }
+    }
+    return result;
+  }
+
   String _keyForDate(DateTime date) {
     final d = DateTime(date.year, date.month, date.day);
     return '${_prefix}${d.toIso8601String()}';
