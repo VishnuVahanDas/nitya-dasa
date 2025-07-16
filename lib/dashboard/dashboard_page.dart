@@ -50,7 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _roundSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -60,8 +60,46 @@ class _DashboardPageState extends State<DashboardPage> {
     return spots;
   }
 
+  List<DateTime> get _sortedDates => _data.keys.toList()..sort();
+
+  Widget _bottomTitleWidgets(double value, TitleMeta meta) {
+    final index = value.toInt();
+    if (index < 0 || index >= _sortedDates.length) {
+      return const SizedBox.shrink();
+    }
+    final date = _sortedDates[index];
+    final label = '${date.month}/${date.day}';
+    return Text(label, style: const TextStyle(fontSize: 10));
+  }
+
+  FlTitlesData get _chartTitles => FlTitlesData(
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            interval: 1,
+            getTitlesWidget: _bottomTitleWidgets,
+          ),
+        ),
+        leftTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: true),
+        ),
+      );
+
+  List<FlSpot> get _wakeUpSpots {
+    final dates = _sortedDates;
+    final List<FlSpot> spots = [];
+    for (var i = 0; i < dates.length; i++) {
+      final d = dates[i];
+      final info = _data[d]!;
+      final time = info.wakeUpTime;
+      final value = time.hour + time.minute / 60.0;
+      spots.add(FlSpot(i.toDouble(), value));
+    }
+    return spots;
+  }
+
   List<FlSpot> get _urgeSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -72,7 +110,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _exerciseSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -83,7 +121,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _readingSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -94,7 +132,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _hearingSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -158,11 +196,29 @@ class _DashboardPageState extends State<DashboardPage> {
               LineChartData(
                 lineBarsData: [
                   LineChartBarData(
+                    spots: _wakeUpSpots,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+                titlesData: _chartTitles,
+                gridData: FlGridData(show: false),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Wake-up time over time'),
+          const SizedBox(height: 16),
+          AspectRatio(
+            aspectRatio: 1.7,
+            child: LineChart(
+              LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
                     spots: _roundSpots,
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: false),
+                titlesData: _chartTitles,
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -176,29 +232,11 @@ class _DashboardPageState extends State<DashboardPage> {
               LineChartData(
                 lineBarsData: [
                   LineChartBarData(
-                    spots: _urgeSpots,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                ],
-                titlesData: FlTitlesData(show: false),
-                gridData: FlGridData(show: false),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text('Urge intensity over time'),
-          const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
                     spots: _exerciseSpots,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: false),
+                titlesData: _chartTitles,
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -216,7 +254,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: false),
+                titlesData: _chartTitles,
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -234,13 +272,31 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: false),
+                titlesData: _chartTitles,
                 gridData: FlGridData(show: false),
               ),
             ),
           ),
           const SizedBox(height: 8),
           const Text('Hearing minutes over time'),
+          const SizedBox(height: 16),
+          AspectRatio(
+            aspectRatio: 1.7,
+            child: LineChart(
+              LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: _urgeSpots,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ],
+                titlesData: _chartTitles,
+                gridData: FlGridData(show: false),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Urge intensity over time'),
         ],
       ),
     );
