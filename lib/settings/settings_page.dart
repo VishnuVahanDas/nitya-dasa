@@ -24,6 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> _load() async {
     final morning = await _service.getMorningTime();
     final evening = await _service.getEveningTime();
+    if (!mounted) return;
     setState(() {
       _morning = morning;
       _evening = evening;

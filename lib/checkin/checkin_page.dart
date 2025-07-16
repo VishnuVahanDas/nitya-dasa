@@ -28,6 +28,7 @@ class _CheckinPageState extends State<CheckinPage> {
 
   Future<void> _loadToday() async {
     final data = await _service.getCheckin(DateTime.now());
+    if (!mounted) return;
     if (data != null) {
       setState(() {
         _wakeUpTime = data.wakeUpTime;

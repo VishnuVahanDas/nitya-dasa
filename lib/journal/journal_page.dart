@@ -26,6 +26,7 @@ class _JournalPageState extends State<JournalPage> {
 
   Future<void> _load() async {
     final entries = await _service.getEntries();
+    if (!mounted) return;
     setState(() => _entries = entries.reversed.toList());
   }
 
