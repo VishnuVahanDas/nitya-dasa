@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f07f836d-91ab-44fa-bfe7-88180a12e243" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/assets/audio/mantra.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Emergency.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/emergency.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/emergency.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/lib/emergency/emergency_page.dart" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/lib/emergency/vow_service.dart" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test/emergency_page_test.dart" afterDir="false" />
