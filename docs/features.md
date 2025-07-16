@@ -4,8 +4,10 @@ This document outlines planned capabilities for the **Nitya Dāsa** mobile appli
 
 ## Main Functionality
 
-- **Daily check-in** to track sadhana and personal goals
-- **Progress dashboard** with charts of japa counts and other metrics
+- **Daily check-in** to track sadhana and personal goals including
+  minutes spent exercising, reading, and hearing scripture
+- **Progress dashboard** with charts of japa counts, urge intensity,
+  and time spent exercising, reading, and hearing
 - **Daily journal** for notes and reflections
 - **Emergency mode** for quick access to important practices and resources
 - **Notifications** and reminders to help stay consistent

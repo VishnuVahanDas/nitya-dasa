@@ -15,8 +15,9 @@ class _CheckinPageState extends State<CheckinPage> {
 
   TimeOfDay _wakeUpTime = const TimeOfDay(hour: 5, minute: 0);
   final _roundsController = TextEditingController();
-  bool _exercised = false;
-  bool _read = false;
+  final _exerciseController = TextEditingController();
+  final _readingController = TextEditingController();
+  final _hearingController = TextEditingController();
   double _urgeIntensity = 1;
   bool _didFall = false;
 
@@ -33,8 +34,9 @@ class _CheckinPageState extends State<CheckinPage> {
       setState(() {
         _wakeUpTime = data.wakeUpTime;
         _roundsController.text = data.rounds.toString();
-        _exercised = data.exercised;
-        _read = data.read;
+        _exerciseController.text = data.exerciseMinutes.toString();
+        _readingController.text = data.readingMinutes.toString();
+        _hearingController.text = data.hearingMinutes.toString();
         _urgeIntensity = data.urgeIntensity.toDouble();
         _didFall = data.didFall;
       });
@@ -45,8 +47,9 @@ class _CheckinPageState extends State<CheckinPage> {
     final data = CheckinData(
       wakeUpTime: _wakeUpTime,
       rounds: int.tryParse(_roundsController.text) ?? 0,
-      exercised: _exercised,
-      read: _read,
+      exerciseMinutes: int.tryParse(_exerciseController.text) ?? 0,
+      readingMinutes: int.tryParse(_readingController.text) ?? 0,
+      hearingMinutes: int.tryParse(_hearingController.text) ?? 0,
       urgeIntensity: _urgeIntensity.toInt(),
       didFall: _didFall,
     );
@@ -60,6 +63,9 @@ class _CheckinPageState extends State<CheckinPage> {
   @override
   void dispose() {
     _roundsController.dispose();
+    _exerciseController.dispose();
+    _readingController.dispose();
+    _hearingController.dispose();
     super.dispose();
   }
 
@@ -88,15 +94,23 @@ class _CheckinPageState extends State<CheckinPage> {
             decoration: const InputDecoration(labelText: 'Rounds'),
             keyboardType: TextInputType.number,
           ),
-          SwitchListTile(
-            title: const Text('Exercised'),
-            value: _exercised,
-            onChanged: (v) => setState(() => _exercised = v),
+          TextField(
+            controller: _exerciseController,
+            decoration:
+                const InputDecoration(labelText: 'Exercise minutes'),
+            keyboardType: TextInputType.number,
           ),
-          SwitchListTile(
-            title: const Text('Read scripture'),
-            value: _read,
-            onChanged: (v) => setState(() => _read = v),
+          TextField(
+            controller: _readingController,
+            decoration:
+                const InputDecoration(labelText: 'Reading minutes'),
+            keyboardType: TextInputType.number,
+          ),
+          TextField(
+            controller: _hearingController,
+            decoration:
+                const InputDecoration(labelText: 'Hearing minutes'),
+            keyboardType: TextInputType.number,
           ),
           ListTile(
             title: const Text('Urge intensity'),
