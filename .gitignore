@@ -41,3 +41,5 @@ android/app/build/
 
 # Generated files
 **/generated_plugin_registrant.dart
+.idea/
+.flutter-plugins-dependencies
