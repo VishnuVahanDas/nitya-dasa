@@ -13,6 +13,7 @@ Key planned features include:
 - **Scripture reading plans** and references
 - **Event calendar** for temple or community activities
 - **Push notifications** for important updates
+- **Emergency page** with vow reminder and mantra playback
 
 For a more detailed overview, see [docs/features.md](docs/features.md).
 
