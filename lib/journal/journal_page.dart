@@ -51,6 +51,13 @@ class _JournalPageState extends State<JournalPage> {
   }
 
   @override
+  void dispose() {
+    _helpedController.dispose();
+    _triggerController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Journal')),
