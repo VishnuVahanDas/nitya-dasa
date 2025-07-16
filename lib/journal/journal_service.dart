@@ -25,4 +25,15 @@ class JournalService {
     final raw = jsonEncode(entries.map((e) => e.toJson()).toList());
     await prefs.setString(_key, raw);
   }
+
+  Future<void> deleteEntry(JournalEntry entry) async {
+    final prefs = await SharedPreferences.getInstance();
+    final entries = await getEntries();
+    entries.removeWhere((e) =>
+        e.timestamp == entry.timestamp &&
+        e.helped == entry.helped &&
+        e.triggered == entry.triggered);
+    final raw = jsonEncode(entries.map((e) => e.toJson()).toList());
+    await prefs.setString(_key, raw);
+  }
 }

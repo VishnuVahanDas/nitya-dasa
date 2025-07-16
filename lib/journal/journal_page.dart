@@ -107,6 +107,18 @@ class _JournalPageState extends State<JournalPage> {
                         ),
                     ],
                   ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () async {
+                      await _service.deleteEntry(e);
+                      await _load();
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Entry deleted')),
+                        );
+                      }
+                    },
+                  ),
                 ),
               )),
         ],

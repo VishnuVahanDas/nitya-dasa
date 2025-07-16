@@ -47,7 +47,10 @@ class _EmergencyPageState extends State<EmergencyPage> {
           Text(_vow, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () => widget._player.play(),
+            onPressed: () async {
+              await widget._player.seek(Duration.zero);
+              await widget._player.play();
+            },
             child: const Text('Play Mantra'),
           ),
         ],
