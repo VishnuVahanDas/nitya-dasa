@@ -36,6 +36,8 @@ Note: On Android 12+ the app needs the `SCHEDULE_EXACT_ALARM` permission and you
    ```bash
    flutter pub get
    ```
+   The generated `pubspec.lock` file is checked into version control so
+   that all developers work with the same dependency versions.
 5. Run the application on an emulator or connected device:
    ```bash
    flutter run
