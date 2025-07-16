@@ -26,7 +26,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
     final vow = await _vowService.getVow();
     if (!mounted) return;
     setState(() => _vow = vow);
-    await widget._player.setAsset('assets/audio/mantra.wav');
+    await widget._player.setAsset('assets/audio/mantra.mp3');
   }
 
   @override
