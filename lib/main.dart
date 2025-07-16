@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'checkin/checkin_page.dart';
 import 'dashboard/dashboard_page.dart';
+import 'journal/journal_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _index = 0;
 
-  final _pages = const [CheckinPage(), DashboardPage()];
+  final _pages = const [CheckinPage(), DashboardPage(), JournalPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Check-in'),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Stats'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Journal'),
         ],
       ),
     );
