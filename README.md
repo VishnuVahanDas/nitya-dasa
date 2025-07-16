@@ -40,6 +40,16 @@ times from the **Settings** page inside the app.
    flutter run
    ```
 
+## Running Tests
+
+Widget tests can be executed using:
+
+```bash
+flutter test
+```
+
+For more details, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Usage Notes
 
 At this stage the project is in early development. After cloning and installing dependencies, you can run the default Flutter app as a starting point. As new features are implemented, this README will be updated with additional instructions.
