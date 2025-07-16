@@ -132,6 +132,21 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+  FlTitlesData _chartTitles() {
+    return FlTitlesData(
+      show: true,
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          interval: 1,
+          getTitlesWidget: _bottomTitleWidgets,
+        ),
+      ),
+      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+    );
+  }
+
   Future<void> _editQuote() async {
     final controller = TextEditingController(text: _quote);
     final result = await showDialog<String>(
@@ -190,14 +205,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: _bottomTitleWidgets,
-                    ),
+                titlesData: _chartTitles(),
                   ),
                 ),
                 gridData: FlGridData(show: false),
@@ -217,14 +225,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: _bottomTitleWidgets,
-                    ),
+                titlesData: _chartTitles(),
                   ),
                 ),
                 gridData: FlGridData(show: false),
@@ -244,14 +245,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: _bottomTitleWidgets,
-                    ),
+                titlesData: _chartTitles(),
                   ),
                 ),
                 gridData: FlGridData(show: false),
@@ -271,14 +265,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ],
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: _bottomTitleWidgets,
-                    ),
+                titlesData: _chartTitles(),
                   ),
                 ),
                 gridData: FlGridData(show: false),
@@ -298,14 +285,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: _bottomTitleWidgets,
-                    ),
+                titlesData: _chartTitles(),
                   ),
                 ),
                 gridData: FlGridData(show: false),
@@ -325,14 +305,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.error,
                   ),
                 ],
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: _bottomTitleWidgets,
-                    ),
+                titlesData: _chartTitles(),
                   ),
                 ),
                 gridData: FlGridData(show: false),
