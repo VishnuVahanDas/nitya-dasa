@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
+import 'emergency_media_service.dart';
 import 'vow_service.dart';
 
 class EmergencyPage extends StatefulWidget {
@@ -14,7 +15,10 @@ class EmergencyPage extends StatefulWidget {
 
 class _EmergencyPageState extends State<EmergencyPage> {
   final _vowService = VowService();
+  final _mediaService = EmergencyMediaService();
   String _vow = '';
+  String _imagePath = EmergencyMediaService.defaultImage;
+  String _audioPath = EmergencyMediaService.defaultAudio;
 
   @override
   void initState() {
@@ -24,9 +28,15 @@ class _EmergencyPageState extends State<EmergencyPage> {
 
   Future<void> _load() async {
     final vow = await _vowService.getVow();
+    final image = await _mediaService.getImagePath();
+    final audio = await _mediaService.getAudioPath();
     if (!mounted) return;
-    setState(() => _vow = vow);
-    await widget._player.setAsset('assets/audio/mantra.mp3');
+    setState(() {
+      _vow = vow;
+      _imagePath = image;
+      _audioPath = audio;
+    });
+    await widget._player.setAsset(audio);
   }
 
   @override
@@ -42,7 +52,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Image.asset('assets/images/emergency.jpg', height: 200),
+          Image.asset(_imagePath, height: 200),
           const SizedBox(height: 16),
           Text(_vow, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 16),

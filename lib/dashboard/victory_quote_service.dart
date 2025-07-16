@@ -22,4 +22,9 @@ class VictoryQuoteService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_key, quote);
   }
+
+  Future<void> resetQuote() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_key);
+  }
 }

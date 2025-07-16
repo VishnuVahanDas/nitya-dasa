@@ -30,4 +30,14 @@ void main() {
 
     expect(find.text('Settings saved'), findsOneWidget);
   });
+
+  testWidgets('Reset button shows snack bar', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: SettingsPage()));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Reset Defaults'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Defaults restored'), findsOneWidget);
+  });
 }
