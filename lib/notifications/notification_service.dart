@@ -32,7 +32,7 @@ class NotificationService {
       final androidImpl = _plugin.resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>();
       try {
-        final allowed = await androidImpl?.requestPermissionToScheduleExactAlarms();
+        final allowed = await androidImpl?.requestExactAlarmsPermission();
         if (allowed == false) {
           debugPrint('Exact alarm permission not granted');
           return;
