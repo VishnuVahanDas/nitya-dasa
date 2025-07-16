@@ -13,6 +13,11 @@ class AppTheme {
       secondary: tulasiGreen,
       tertiary: gopiBlue,
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: saffron,
+      unselectedItemColor: gopiBlue,
+      backgroundColor: Colors.white,
+    ),
     textTheme: GoogleFonts.hindTextTheme(ThemeData.light().textTheme),
   );
 }
