@@ -22,6 +22,7 @@ Daily reminders help keep you on track. The app uses
 `flutter_local_notifications` to schedule a morning and evening reminder.
 By default these fire at **7:00 AM** and **7:00 PM**. You can adjust these
 times from the **Settings** page inside the app.
+Note: On Android 12+ the app needs the `SCHEDULE_EXACT_ALARM` permission and you may have to allow exact alarms in system settings.
 
 ## Installation
 
