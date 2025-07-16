@@ -6,7 +6,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:nitya_dasa/emergency/emergency_page.dart';
 
 class MockAudioPlayer extends AudioPlayer {
-  bool played = false;
+  int playCount = 0;
+  int seekCount = 0;
 
   @override
   Future<Duration?> setAsset(String path, {AudioLoadConfiguration? preload}) async {
@@ -15,7 +16,12 @@ class MockAudioPlayer extends AudioPlayer {
 
   @override
   Future<void> play() async {
-    played = true;
+    playCount++;
+  }
+
+  @override
+  Future<void> seek(Duration? position, {int? index}) async {
+    seekCount++;
   }
 
   @override
@@ -29,14 +35,20 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  testWidgets('Emergency button starts playback', (tester) async {
+  testWidgets('Emergency button plays mantra each time tapped', (tester) async {
     final player = MockAudioPlayer();
     await tester.pumpWidget(MaterialApp(home: EmergencyPage(player: player)));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Play Mantra'));
+    final button = find.widgetWithText(ElevatedButton, 'Play Mantra');
+
+    await tester.tap(button);
     await tester.pump();
 
-    expect(player.played, isTrue);
+    await tester.tap(button);
+    await tester.pump();
+
+    expect(player.playCount, 2);
+    expect(player.seekCount, 2);
   });
 }
