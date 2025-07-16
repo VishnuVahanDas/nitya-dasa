@@ -27,3 +27,17 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+# Flutter build files
+build/
+.dart_tool/
+.packages
+pubspec.lock
+
+# iOS and Android folder builds
+ios/Flutter/Flutter.podspec
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+android/app/build/
+
+# Generated files
+**/generated_plugin_registrant.dart
