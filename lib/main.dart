@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'checkin/checkin_page.dart';
 import 'dashboard/dashboard_page.dart';
 import 'journal/journal_page.dart';
+import 'settings/settings_page.dart';
+import 'settings/settings_service.dart';
+import 'notifications/notification_service.dart';
 import 'theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final settings = SettingsService();
+  final morning = await settings.getMorningTime();
+  final evening = await settings.getEveningTime();
+  await NotificationService.instance.init();
+  await NotificationService.instance.scheduleDailyReminders(
+    morning: Time(morning.hour, morning.minute),
+    evening: Time(evening.hour, evening.minute),
+  );
   runApp(const MyApp());
 }
 
@@ -31,7 +43,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _index = 0;
 
-  final _pages = const [CheckinPage(), DashboardPage(), JournalPage()];
+  final _pages = const [
+    CheckinPage(),
+    DashboardPage(),
+    JournalPage(),
+    SettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +61,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Check-in'),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Stats'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Journal'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
     );

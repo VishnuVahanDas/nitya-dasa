@@ -16,6 +16,13 @@ Key planned features include:
 
 For a more detailed overview, see [docs/features.md](docs/features.md).
 
+## Notifications
+
+Daily reminders help keep you on track. The app uses
+`flutter_local_notifications` to schedule a morning and evening reminder.
+By default these fire at **7:00 AM** and **7:00 PM**. You can adjust these
+times from the **Settings** page inside the app.
+
 ## Installation
 
 1. Ensure you have the [Flutter SDK](https://flutter.dev/) installed.
