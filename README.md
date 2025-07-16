@@ -14,6 +14,8 @@ Key planned features include:
 - **Event calendar** for temple or community activities
 - **Push notifications** for important updates
 
+For a more detailed overview, see [docs/features.md](docs/features.md).
+
 ## Installation
 
 1. Ensure you have the [Flutter SDK](https://flutter.dev/) installed.
