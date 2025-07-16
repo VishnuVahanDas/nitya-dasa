@@ -123,7 +123,10 @@ class _DashboardPageState extends State<DashboardPage> {
             child: LineChart(
               LineChartData(
                 lineBarsData: [
-                  LineChartBarData(spots: _roundSpots, color: Colors.blue),
+                  LineChartBarData(
+                    spots: _roundSpots,
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
                 ],
                 titlesData: FlTitlesData(show: false),
                 gridData: FlGridData(show: false),
@@ -138,7 +141,10 @@ class _DashboardPageState extends State<DashboardPage> {
             child: LineChart(
               LineChartData(
                 lineBarsData: [
-                  LineChartBarData(spots: _urgeSpots, color: Colors.red),
+                  LineChartBarData(
+                    spots: _urgeSpots,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
                 ],
                 titlesData: FlTitlesData(show: false),
                 gridData: FlGridData(show: false),
