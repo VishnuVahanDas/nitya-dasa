@@ -13,6 +13,7 @@ class CheckinPage extends StatefulWidget {
 class _CheckinPageState extends State<CheckinPage> {
   final _service = CheckinService();
 
+  late DateTime _selectedDate;
   TimeOfDay _wakeUpTime = const TimeOfDay(hour: 5, minute: 0);
   final _roundsController = TextEditingController();
   final _exerciseController = TextEditingController();
@@ -24,11 +25,12 @@ class _CheckinPageState extends State<CheckinPage> {
   @override
   void initState() {
     super.initState();
-    _loadToday();
+    _selectedDate = DateTime.now();
+    _loadForSelectedDate();
   }
 
-  Future<void> _loadToday() async {
-    final data = await _service.getCheckin(DateTime.now());
+  Future<void> _loadForSelectedDate() async {
+    final data = await _service.getCheckin(_selectedDate);
     if (!mounted) return;
     if (data != null) {
       setState(() {
@@ -39,6 +41,16 @@ class _CheckinPageState extends State<CheckinPage> {
         _hearingController.text = data.hearingMinutes.toString();
         _urgeIntensity = data.urgeIntensity.toDouble();
         _didFall = data.didFall;
+      });
+    } else {
+      setState(() {
+        _wakeUpTime = const TimeOfDay(hour: 5, minute: 0);
+        _roundsController.clear();
+        _exerciseController.clear();
+        _readingController.clear();
+        _hearingController.clear();
+        _urgeIntensity = 1;
+        _didFall = false;
       });
     }
   }
@@ -53,7 +65,7 @@ class _CheckinPageState extends State<CheckinPage> {
       urgeIntensity: _urgeIntensity.toInt(),
       didFall: _didFall,
     );
-    await _service.saveCheckin(DateTime.now(), data);
+    await _service.saveCheckin(_selectedDate, data);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Check-in saved')),);
@@ -76,6 +88,25 @@ class _CheckinPageState extends State<CheckinPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          ListTile(
+            title: const Text('Date'),
+            subtitle: Text(
+              '${_selectedDate.year}-${_selectedDate.month.toString().padLeft(2, '0')}-${_selectedDate.day.toString().padLeft(2, '0')}',
+            ),
+            onTap: () async {
+              final now = DateTime.now();
+              final picked = await showDatePicker(
+                context: context,
+                initialDate: _selectedDate,
+                firstDate: now.subtract(const Duration(days: 6)),
+                lastDate: now,
+              );
+              if (picked != null && picked != _selectedDate) {
+                setState(() => _selectedDate = picked);
+                await _loadForSelectedDate();
+              }
+            },
+          ),
           ListTile(
             title: const Text('Wake-up time'),
             subtitle: Text(_wakeUpTime.format(context)),

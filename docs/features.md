@@ -6,6 +6,7 @@ This document outlines planned capabilities for the **Nitya Dāsa** mobile appli
 
 - **Daily check-in** to track sadhana and personal goals including
   minutes spent exercising, reading, and hearing scripture
+  - Users can fill in entries for up to a week in the past
 - **Progress dashboard** with charts of japa counts, urge intensity,
   and time spent exercising, reading, and hearing
 - **Daily journal** for notes and reflections
