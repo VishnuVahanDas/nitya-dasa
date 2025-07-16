@@ -44,12 +44,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _index = 0;
 
-  final _pages = const [
-    CheckinPage(),
-    DashboardPage(),
-    JournalPage(),
+  final _pages = [
+    const CheckinPage(),
+    const DashboardPage(),
+    const JournalPage(),
     EmergencyPage(),
-    SettingsPage(),
+    const SettingsPage(),
   ];
 
   @override
