@@ -28,6 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Future<void> _load() async {
     final data = await _checkinService.getAllCheckins();
     final quote = await _quoteService.getQuote();
+    if (!mounted) return;
     setState(() {
       _data = data;
       _quote = quote;
