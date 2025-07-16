@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -18,8 +19,8 @@ class NotificationService {
   }
 
   Future<void> scheduleDailyReminders({
-    required Time morning,
-    required Time evening,
+    required TimeOfDay morning,
+    required TimeOfDay evening,
   }) async {
     await _plugin.cancelAll();
 
@@ -57,7 +58,7 @@ class NotificationService {
     );
   }
 
-  tz.TZDateTime _nextInstance(Time time) {
+  tz.TZDateTime _nextInstance(TimeOfDay time) {
     final now = tz.TZDateTime.now(tz.local);
     var scheduled = tz.TZDateTime(tz.local, now.year, now.month, now.day,
         time.hour, time.minute);

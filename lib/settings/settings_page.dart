@@ -34,8 +34,8 @@ class _SettingsPageState extends State<SettingsPage> {
     await _service.setMorningTime(_morning);
     await _service.setEveningTime(_evening);
     await NotificationService.instance.scheduleDailyReminders(
-      morning: Time(_morning.hour, _morning.minute),
-      evening: Time(_evening.hour, _evening.minute),
+      morning: _morning,
+      evening: _evening,
     );
     if (mounted) {
       ScaffoldMessenger.of(context)
