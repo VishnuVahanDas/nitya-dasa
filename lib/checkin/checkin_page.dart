@@ -58,6 +58,12 @@ class _CheckinPageState extends State<CheckinPage> {
   }
 
   @override
+  void dispose() {
+    _roundsController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Daily Check-in')),
