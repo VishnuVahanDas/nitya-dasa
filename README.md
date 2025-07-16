@@ -26,15 +26,16 @@ times from the **Settings** page inside the app.
 ## Installation
 
 1. Ensure you have the [Flutter SDK](https://flutter.dev/) installed.
-2. Clone this repository:
+2. Install the Android NDK version `27.0.12077973` and make sure `android/app/build.gradle.kts` sets `ndkVersion` to this value.
+3. Clone this repository:
    ```bash
    git clone <repository-url>
    ```
-3. Navigate to the project directory and get the dependencies:
+4. Navigate to the project directory and get the dependencies:
    ```bash
    flutter pub get
    ```
-4. Run the application on an emulator or connected device:
+5. Run the application on an emulator or connected device:
    ```bash
    flutter run
    ```
