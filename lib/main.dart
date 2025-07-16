@@ -5,6 +5,7 @@ import 'journal/journal_page.dart';
 import 'settings/settings_page.dart';
 import 'settings/settings_service.dart';
 import 'notifications/notification_service.dart';
+import 'emergency/emergency_page.dart';
 import 'theme.dart';
 
 Future<void> main() async {
@@ -47,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     CheckinPage(),
     DashboardPage(),
     JournalPage(),
+    EmergencyPage(),
     SettingsPage(),
   ];
 
@@ -61,6 +63,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Check-in'),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Stats'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Journal'),
+          BottomNavigationBarItem(icon: Icon(Icons.warning), label: 'Emergency'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),

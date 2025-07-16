@@ -11,5 +11,6 @@ void main() {
     expect(find.byIcon(Icons.edit), findsOneWidget);
     expect(find.byIcon(Icons.show_chart), findsOneWidget);
     expect(find.byIcon(Icons.book), findsOneWidget);
+    expect(find.byIcon(Icons.warning), findsOneWidget);
   });
 }
