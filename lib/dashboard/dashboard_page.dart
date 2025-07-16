@@ -19,6 +19,8 @@ class _DashboardPageState extends State<DashboardPage> {
   Map<DateTime, CheckinData> _data = {};
   String _quote = '';
 
+  List<DateTime> get _sortedDates => _data.keys.toList()..sort();
+
   @override
   void initState() {
     super.initState();
@@ -36,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   int get _streak {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     int streak = 0;
     DateTime? last;
     for (final date in dates.reversed) {
@@ -50,7 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _roundSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -61,7 +63,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _wakeUpSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -74,7 +76,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _urgeSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -85,7 +87,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _exerciseSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -96,7 +98,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _readingSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -107,7 +109,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<FlSpot> get _hearingSpots {
-    final dates = _data.keys.toList()..sort();
+    final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
@@ -115,6 +117,19 @@ class _DashboardPageState extends State<DashboardPage> {
       spots.add(FlSpot(i.toDouble(), info.hearingMinutes.toDouble()));
     }
     return spots;
+  }
+
+  Widget _bottomTitleWidgets(double value, TitleMeta meta) {
+    final index = value.toInt();
+    if (index < 0 || index >= _sortedDates.length) {
+      return const SizedBox.shrink();
+    }
+    final date = _sortedDates[index];
+    final text = '${date.month}/${date.day}';
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text(text, style: const TextStyle(fontSize: 10)),
+    );
   }
 
   Future<void> _editQuote() async {
@@ -175,7 +190,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: true),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: _bottomTitleWidgets,
+                    ),
+                  ),
+                ),
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -193,7 +217,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: true),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: _bottomTitleWidgets,
+                    ),
+                  ),
+                ),
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -211,7 +244,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: true),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: _bottomTitleWidgets,
+                    ),
+                  ),
+                ),
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -229,7 +271,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: true),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: _bottomTitleWidgets,
+                    ),
+                  ),
+                ),
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -247,7 +298,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
-                titlesData: FlTitlesData(show: true),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: _bottomTitleWidgets,
+                    ),
+                  ),
+                ),
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -265,7 +325,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.error,
                   ),
                 ],
-                titlesData: FlTitlesData(show: true),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: _bottomTitleWidgets,
+                    ),
+                  ),
+                ),
                 gridData: FlGridData(show: false),
               ),
             ),
