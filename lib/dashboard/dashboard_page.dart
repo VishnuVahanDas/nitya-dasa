@@ -71,6 +71,39 @@ class _DashboardPageState extends State<DashboardPage> {
     return spots;
   }
 
+  List<FlSpot> get _exerciseSpots {
+    final dates = _data.keys.toList()..sort();
+    final List<FlSpot> spots = [];
+    for (var i = 0; i < dates.length; i++) {
+      final d = dates[i];
+      final info = _data[d]!;
+      spots.add(FlSpot(i.toDouble(), info.exerciseMinutes.toDouble()));
+    }
+    return spots;
+  }
+
+  List<FlSpot> get _readingSpots {
+    final dates = _data.keys.toList()..sort();
+    final List<FlSpot> spots = [];
+    for (var i = 0; i < dates.length; i++) {
+      final d = dates[i];
+      final info = _data[d]!;
+      spots.add(FlSpot(i.toDouble(), info.readingMinutes.toDouble()));
+    }
+    return spots;
+  }
+
+  List<FlSpot> get _hearingSpots {
+    final dates = _data.keys.toList()..sort();
+    final List<FlSpot> spots = [];
+    for (var i = 0; i < dates.length; i++) {
+      final d = dates[i];
+      final info = _data[d]!;
+      spots.add(FlSpot(i.toDouble(), info.hearingMinutes.toDouble()));
+    }
+    return spots;
+  }
+
   Future<void> _editQuote() async {
     final controller = TextEditingController(text: _quote);
     final result = await showDialog<String>(
@@ -154,6 +187,60 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 8),
           const Text('Urge intensity over time'),
+          const SizedBox(height: 16),
+          AspectRatio(
+            aspectRatio: 1.7,
+            child: LineChart(
+              LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: _exerciseSpots,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+                titlesData: FlTitlesData(show: false),
+                gridData: FlGridData(show: false),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Exercise minutes over time'),
+          const SizedBox(height: 16),
+          AspectRatio(
+            aspectRatio: 1.7,
+            child: LineChart(
+              LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: _readingSpots,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ],
+                titlesData: FlTitlesData(show: false),
+                gridData: FlGridData(show: false),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Reading minutes over time'),
+          const SizedBox(height: 16),
+          AspectRatio(
+            aspectRatio: 1.7,
+            child: LineChart(
+              LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: _hearingSpots,
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                ],
+                titlesData: FlTitlesData(show: false),
+                gridData: FlGridData(show: false),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Hearing minutes over time'),
         ],
       ),
     );

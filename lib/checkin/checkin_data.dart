@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 class CheckinData {
   final TimeOfDay wakeUpTime;
   final int rounds;
-  final bool exercised;
-  final bool read;
+  final int exerciseMinutes;
+  final int readingMinutes;
+  final int hearingMinutes;
   final int urgeIntensity;
   final bool didFall;
 
   CheckinData({
     required this.wakeUpTime,
     required this.rounds,
-    required this.exercised,
-    required this.read,
+    required this.exerciseMinutes,
+    required this.readingMinutes,
+    required this.hearingMinutes,
     required this.urgeIntensity,
     required this.didFall,
   });
@@ -20,8 +22,9 @@ class CheckinData {
         'wakeUpHour': wakeUpTime.hour,
         'wakeUpMinute': wakeUpTime.minute,
         'rounds': rounds,
-        'exercised': exercised,
-        'read': read,
+        'exerciseMinutes': exerciseMinutes,
+        'readingMinutes': readingMinutes,
+        'hearingMinutes': hearingMinutes,
         'urgeIntensity': urgeIntensity,
         'didFall': didFall,
       };
@@ -33,8 +36,9 @@ class CheckinData {
         minute: json['wakeUpMinute'] as int,
       ),
       rounds: json['rounds'] as int,
-      exercised: json['exercised'] as bool,
-      read: json['read'] as bool,
+      exerciseMinutes: (json['exerciseMinutes'] ?? 0) as int,
+      readingMinutes: (json['readingMinutes'] ?? 0) as int,
+      hearingMinutes: (json['hearingMinutes'] ?? 0) as int,
       urgeIntensity: json['urgeIntensity'] as int,
       didFall: json['didFall'] as bool,
     );
