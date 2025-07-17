@@ -119,13 +119,14 @@ class _DashboardPageState extends State<DashboardPage> {
     return spots;
   }
 
-  List<FlSpot> get _sleepSpots {
+  List<FlSpot> get _bedTimeSpots {
     final dates = _sortedDates;
     final List<FlSpot> spots = [];
     for (var i = 0; i < dates.length; i++) {
       final d = dates[i];
       final info = _data[d]!;
-      spots.add(FlSpot(i.toDouble(), info.sleepMinutes.toDouble()));
+      final time = info.bedTime;
+      spots.add(FlSpot(i.toDouble(), time.hour + time.minute / 60.0));
     }
     return spots;
   }
@@ -302,7 +303,7 @@ class _DashboardPageState extends State<DashboardPage> {
               LineChartData(
                 lineBarsData: [
                   LineChartBarData(
-                    spots: _sleepSpots,
+                    spots: _bedTimeSpots,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
@@ -312,7 +313,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
           const SizedBox(height: 8),
-          const Text('Sleep minutes over time'),
+          const Text('Bedtime over time'),
           const SizedBox(height: 16),
           AspectRatio(
             aspectRatio: 1.7,
