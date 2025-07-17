@@ -144,7 +144,18 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  FlTitlesData _chartTitles() {
+  Widget _leftTimeTitleWidget(double value, TitleMeta meta) {
+    final hour = value.floor() % 24;
+    final minutes = ((value - value.floor()) * 60).round();
+    final time = TimeOfDay(hour: hour, minute: minutes);
+    final text = MaterialLocalizations.of(context).formatTimeOfDay(time);
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text(text, style: const TextStyle(fontSize: 10)),
+    );
+  }
+
+  FlTitlesData _chartTitles({bool showTimeAxis = false}) {
     return FlTitlesData(
       show: true,
       bottomTitles: AxisTitles(
@@ -154,6 +165,15 @@ class _DashboardPageState extends State<DashboardPage> {
           getTitlesWidget: _bottomTitleWidgets,
         ),
       ),
+      leftTitles: showTimeAxis
+          ? AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                interval: 1,
+                getTitlesWidget: _leftTimeTitleWidget,
+              ),
+            )
+          : const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
     );
@@ -217,7 +237,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: _chartTitles(),
+                titlesData: _chartTitles(showTimeAxis: true),
+                minY: 0,
+                maxY: 24,
                 gridData: FlGridData(show: false),
               ),
             ),
@@ -307,7 +329,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
-                titlesData: _chartTitles(),
+                titlesData: _chartTitles(showTimeAxis: true),
+                  minY: 0,
+                  maxY: 24,
                 gridData: FlGridData(show: false),
               ),
             ),
