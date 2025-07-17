@@ -144,7 +144,18 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  FlTitlesData _chartTitles() {
+  FlTitlesData _chartTitles({String? yUnit}) {
+    final leftTitles = yUnit == null
+        ? const SideTitles(showTitles: false)
+        : SideTitles(
+            showTitles: true,
+            interval: 1,
+            reservedSize: 40,
+            getTitlesWidget: (value, meta) => Text(
+              '${value.toInt()}${yUnit ?? ''}',
+              style: const TextStyle(fontSize: 10),
+            ),
+          );
     return FlTitlesData(
       show: true,
       bottomTitles: AxisTitles(
@@ -154,6 +165,7 @@ class _DashboardPageState extends State<DashboardPage> {
           getTitlesWidget: _bottomTitleWidgets,
         ),
       ),
+      leftTitles: AxisTitles(sideTitles: leftTitles),
       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
     );
@@ -207,132 +219,163 @@ class _DashboardPageState extends State<DashboardPage> {
           Text('Current streak: $_streak days',
               style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _wakeUpSpots,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Wake-up time over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _wakeUpSpots,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: 'h'),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Wake-up time over time'),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _roundSpots,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Total rounds over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _roundSpots,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: ''),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Total rounds over time'),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _exerciseSpots,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Exercise minutes over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _exerciseSpots,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: 'm'),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Exercise minutes over time'),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _readingSpots,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Reading minutes over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _readingSpots,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: 'm'),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Reading minutes over time'),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _hearingSpots,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Hearing minutes over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _hearingSpots,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: 'm'),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Hearing minutes over time'),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _bedTimeSpots,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Bedtime over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _bedTimeSpots,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: 'h'),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Bedtime over time'),
           const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: LineChart(
-              LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: _urgeSpots,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                ],
-                titlesData: _chartTitles(),
-                gridData: FlGridData(show: false),
+          DashboardChartCard(
+            title: 'Urge intensity over time',
+            chart: AspectRatio(
+              aspectRatio: 1.7,
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _urgeSpots,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ],
+                  titlesData: _chartTitles(yUnit: ''),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text('Urge intensity over time'),
         ],
+      ),
+    );
+  }
+}
+
+class DashboardChartCard extends StatelessWidget {
+  final String title;
+  final Widget chart;
+
+  const DashboardChartCard({super.key, required this.title, required this.chart});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleSmall),
+            const SizedBox(height: 8),
+            chart,
+          ],
+        ),
       ),
     );
   }
