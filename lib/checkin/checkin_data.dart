@@ -5,6 +5,7 @@ class CheckinData {
   final int exerciseMinutes;
   final int readingMinutes;
   final int hearingMinutes;
+  final int sleepMinutes;
   final int urgeIntensity;
   final bool didFall;
 
@@ -14,6 +15,7 @@ class CheckinData {
     required this.exerciseMinutes,
     required this.readingMinutes,
     required this.hearingMinutes,
+    required this.sleepMinutes,
     required this.urgeIntensity,
     required this.didFall,
   });
@@ -25,6 +27,7 @@ class CheckinData {
         'exerciseMinutes': exerciseMinutes,
         'readingMinutes': readingMinutes,
         'hearingMinutes': hearingMinutes,
+        'sleepMinutes': sleepMinutes,
         'urgeIntensity': urgeIntensity,
         'didFall': didFall,
       };
@@ -39,6 +42,7 @@ class CheckinData {
       exerciseMinutes: (json['exerciseMinutes'] ?? 0) as int,
       readingMinutes: (json['readingMinutes'] ?? 0) as int,
       hearingMinutes: (json['hearingMinutes'] ?? 0) as int,
+      sleepMinutes: (json['sleepMinutes'] ?? 0) as int,
       urgeIntensity: json['urgeIntensity'] as int,
       didFall: json['didFall'] as bool,
     );

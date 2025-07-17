@@ -119,6 +119,17 @@ class _DashboardPageState extends State<DashboardPage> {
     return spots;
   }
 
+  List<FlSpot> get _sleepSpots {
+    final dates = _sortedDates;
+    final List<FlSpot> spots = [];
+    for (var i = 0; i < dates.length; i++) {
+      final d = dates[i];
+      final info = _data[d]!;
+      spots.add(FlSpot(i.toDouble(), info.sleepMinutes.toDouble()));
+    }
+    return spots;
+  }
+
   Widget _bottomTitleWidgets(double value, TitleMeta meta) {
     final index = value.toInt();
     if (index < 0 || index >= _sortedDates.length) {
@@ -284,6 +295,24 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           const SizedBox(height: 8),
           const Text('Hearing minutes over time'),
+          const SizedBox(height: 16),
+          AspectRatio(
+            aspectRatio: 1.7,
+            child: LineChart(
+              LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: _sleepSpots,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+                titlesData: _chartTitles(),
+                gridData: FlGridData(show: false),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text('Sleep minutes over time'),
           const SizedBox(height: 16),
           AspectRatio(
             aspectRatio: 1.7,

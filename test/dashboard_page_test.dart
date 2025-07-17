@@ -18,6 +18,7 @@ void main() {
     expect(find.text('Dashboard'), findsOneWidget);
     expect(find.text('Current streak: 0 days'), findsOneWidget);
     expect(find.text('Total rounds over time'), findsOneWidget);
+    expect(find.text('Sleep minutes over time'), findsOneWidget);
     expect(find.text('Urge intensity over time'), findsOneWidget);
   });
 }

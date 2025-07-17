@@ -19,6 +19,7 @@ class _CheckinPageState extends State<CheckinPage> {
   final _exerciseController = TextEditingController();
   final _readingController = TextEditingController();
   final _hearingController = TextEditingController();
+  final _sleepController = TextEditingController();
   double _urgeIntensity = 1;
   bool _didFall = false;
 
@@ -39,6 +40,7 @@ class _CheckinPageState extends State<CheckinPage> {
         _exerciseController.text = data.exerciseMinutes.toString();
         _readingController.text = data.readingMinutes.toString();
         _hearingController.text = data.hearingMinutes.toString();
+        _sleepController.text = data.sleepMinutes.toString();
         _urgeIntensity = data.urgeIntensity.toDouble();
         _didFall = data.didFall;
       });
@@ -49,6 +51,7 @@ class _CheckinPageState extends State<CheckinPage> {
         _exerciseController.clear();
         _readingController.clear();
         _hearingController.clear();
+        _sleepController.clear();
         _urgeIntensity = 1;
         _didFall = false;
       });
@@ -62,6 +65,7 @@ class _CheckinPageState extends State<CheckinPage> {
       exerciseMinutes: int.tryParse(_exerciseController.text) ?? 0,
       readingMinutes: int.tryParse(_readingController.text) ?? 0,
       hearingMinutes: int.tryParse(_hearingController.text) ?? 0,
+      sleepMinutes: int.tryParse(_sleepController.text) ?? 0,
       urgeIntensity: _urgeIntensity.toInt(),
       didFall: _didFall,
     );
@@ -79,6 +83,7 @@ class _CheckinPageState extends State<CheckinPage> {
     _exerciseController.dispose();
     _readingController.dispose();
     _hearingController.dispose();
+    _sleepController.dispose();
     super.dispose();
   }
 
@@ -142,6 +147,12 @@ class _CheckinPageState extends State<CheckinPage> {
             controller: _hearingController,
             decoration:
                 const InputDecoration(labelText: 'Hearing minutes'),
+            keyboardType: TextInputType.number,
+          ),
+          TextField(
+            controller: _sleepController,
+            decoration:
+                const InputDecoration(labelText: 'Sleep minutes'),
             keyboardType: TextInputType.number,
           ),
           ListTile(
